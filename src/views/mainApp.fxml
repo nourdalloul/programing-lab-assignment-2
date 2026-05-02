@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f3f6f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.mainController">
+   <top>
+     <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Appearance">
+              <items>
+                  <Menu mnemonicParsing="false" text="Font Family">
+                      <items>
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontFamily" text="Arial" />
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontFamily" text="Verdana" />
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontFamily" text="Courier New" />
+                      </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Font Size">
+                      <items>
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontSize" text="12px" />
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontSize" text="16px" />
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontSize" text="20px" />
+                      </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Font Style">
+                      <items>
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontStyle" text="Normal" />
+                          <MenuItem mnemonicParsing="false" onAction="#changeFontStyle" text="Italic" />
+                      </items>
+                  </Menu>
+              </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <VBox prefWidth="480.0" spacing="15.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <children>
+            <Label text="All Tasks" textFill="#004a99">
+               <font><Font name="System Bold" size="18.0" /></font>
+            </Label>
+            <!-- محاكاة القائمة كما في الصورة -->
+            <ListView fx:id="taskListView" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #d1d9e0;" VBox.vgrow="ALWAYS" />
+            
+            <!-- صندوق إجمالي المهام الأزرق في الأسفل -->
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" spacing="20.0" style="-fx-background-color: #2b78c5; -fx-background-radius: 10;">
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+               <children>
+                  <Label text="📋" textFill="WHITE" style="-fx-font-size: 30;" />
+                  <VBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Total Tasks:" textFill="WHITE">
+                           <font><Font size="16.0" /></font>
+                        </Label>
+                        <Label fx:id="totalLabel" text="8" textFill="WHITE">
+                           <font><Font name="System Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox spacing="15.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="15.0" left="0.0" right="15.0" top="15.0" />
+         </padding>
+         <children>
+            <!-- قسم إضافة المهام -->
+            <VBox spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #e1e8ed; -fx-border-radius: 10; -fx-padding: 20;">
+               <children>
+                  <Label text="Add New Task" textFill="#004a99">
+                     <font><Font name="System Bold" size="16.0" /></font>
+                  </Label>
+                  <GridPane hgap="15.0" vgap="12.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" minWidth="100.0" />
+                      <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="Title:" />
+                        <TextField fx:id="titleField" promptText="Enter task title" GridPane.columnIndex="1" />
+                        
+                        <Label text="Status:" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="statusCombo" maxWidth="Infinity" promptText="open" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        
+                        <Label text="Added By:" GridPane.rowIndex="2" />
+                        <TextField fx:id="addedByField" promptText="Enter your name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        
+                        <Label text="Creation Date:" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="datePicker" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    </children>
+                  </GridPane>
+                  <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                     <children>
+                        <Button fx:id="addTask" graphicTextGap="8.0" onAction="#handleAddTask" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #2b78c5; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" text="+ Add Task" />
+                        <Button fx:id="clearFields" onAction="#handleClear" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: white; -fx-border-color: #d1d9e0; -fx-border-radius: 5;" text="🔄 Clear" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+
+            <!-- قسم تحليل المهام -->
+            <VBox spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #e1e8ed; -fx-border-radius: 10; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Task Analysis" textFill="#004a99">
+                     <font><Font name="System Bold" size="16.0" /></font>
+                  </Label>
+                  <VBox spacing="10.0">
+                     <children>
+                        <!-- سطر التحليل الواحد -->
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="👤" style="-fx-font-size: 18;" />
+                              <Label prefWidth="150.0" text="6. Tasks added by specific user" wrapText="true" />
+                              <TextField fx:id="userField" prefWidth="100.0" promptText="Ali" />
+                              <Button onAction="#handleTasksByUser" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;" text="Show" />
+                              <Label fx:id="resultLabel1" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;" text="• Attend Meeting..." HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="📅" style="-fx-font-size: 18;" />
+                              <Label prefWidth="150.0" text="7. Earliest four tasks" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button onAction="#handleEarliest" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;" text="Show" />
+                              <Label fx:id="resultLabel2" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;" text="Tasks List..." />
+                           </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="🔍" style="-fx-font-size: 18;" />
+                              <Label prefWidth="150.0" text="8. Tasks start with 'a' and 7 letters" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button onAction="#handleSpecial" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;" text="Show" />
+                              <Label fx:id="resultLabel3" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;" text="analysis..." />
+                           </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="🏆" style="-fx-font-size: 18;" />
+                              <Label prefWidth="150.0" text="9. Most active user" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button onAction="#handleMostActive" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;" text="Show" />
+                              <Label fx:id="resultLabel4" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;" text="Sami (3 tasks)" />
+                           </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="📂" style="-fx-font-size: 18;" />
+                              <Label prefWidth="150.0" text="10. Count open / closed tasks" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button onAction="#handleOpenCount" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;" text="Show" />
+                              <HBox spacing="10">
+                                 <children>
+                                    <Label fx:id="openCountLabel" text="Open: 5" textFill="#27ae60" style="-fx-font-weight: bold;" />
+                                    <Label text="|" />
+                                    <Label fx:id="closedCountLabel" text="Closed: 3" textFill="#e74c3c" style="-fx-font-weight: bold;" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="👤" style="-fx-font-size: 18;" />
+                              <Label prefWidth="150.0" text="11. Count tasks by user" />
+                              <TextField fx:id="countUserField" prefWidth="100.0" promptText="Sami" />
+                              <Button onAction="#handleCountByUser" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 3;" text="Show" />
+                              <Label fx:id="resultLabel5" style="-fx-background-color: #f8f9fa; -fx-padding: 5; -fx-background-radius: 5;" text="3" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
